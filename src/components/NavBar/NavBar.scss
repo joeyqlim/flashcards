@@ -1,0 +1,83 @@
+.nav-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.theme-toggle-btn {
+  all: unset;
+  display: none;
+}
+
+.switch {
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  position: relative;
+}
+
+.icons {
+  display: flex;
+  width: 50px;
+  flex-direction: row;
+  padding: 0 10px;
+  font-size: 0.7rem;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 2px var(--color-text);
+  background-color: var(--color-background);
+  border-radius: 40px;
+  cursor: pointer;
+}
+
+.moon {
+  padding-right: 4px;
+}
+
+.sun {
+  padding-left: 4px;
+}
+
+.toggle-thumb:before {
+  content: "";
+  height: 26px;
+  width: 26px;
+  position: absolute;
+  left: 1.5px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  transition: 0.4s all ease;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox:checked + .toggle-thumb:before {
+  transform: translateX(26px);
+}
+
+@media only screen and (max-width: 424px) {
+  .theme-toggle-btn {
+    display: inline-block;
+  }
+  .switch {
+    display: none;
+  }
+}

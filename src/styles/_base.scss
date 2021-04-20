@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+
+body {
+  font-family: "Itim", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  margin: 0;
+}
+
+*:not(.card-body) {
+  transition: background-color 0.4s ease, color 0.7s ease;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

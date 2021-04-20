@@ -1,0 +1,23 @@
+[
+  {
+    "en": "Father",
+    "de": "Vater",
+    "gender": "m",
+    "plural": "Väter",
+    "topic": "Meine Familie"
+  },
+  {
+    "en": "Mother",
+    "de": "Mutter",
+    "gender": "f",
+    "plural": "Mütter",
+    "topic": "Meine Familie"
+  },
+  {
+    "en": "Sibling",
+    "de": "Geschwister",
+    "gender": "n",
+    "plural": "Geschwister",
+    "topic": "Meine Familie"
+  }
+]
