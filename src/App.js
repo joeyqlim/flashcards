@@ -3,11 +3,18 @@ import Card from "./components/Card/Card";
 import NavBar from "./components/NavBar/NavBar";
 import Button from "./components/Button/Button";
 import "./App.scss";
-import words from "./data/words";
+import axios from "axios";
+//import words from "./data/words";
 
 const App = () => {
   const [cards, setCards] = useState([]);
-  const [currentCard, setCurrentCard] = useState({});
+  const [currentCard, setCurrentCard] = useState({
+    en: "Dog",
+    de: "Hund",
+    gender: "m",
+    plural: "Hunde",
+    topic: "Meine Familie",
+  });
   const [color, setColor] = useState("pink");
   const [show, setShow] = useState(false);
 
@@ -49,9 +56,14 @@ const App = () => {
   };
 
   useEffect(() => {
-    setCards(words);
-    setCurrentCard(cards[0]);
-  }, [cards]);
+    const fetchWords = async () => {
+      const { data } = await axios.get(
+        "https://nicos-weg-api.herokuapp.com/words"
+      );
+      setCards(data);
+    };
+    fetchWords();
+  }, []);
 
   return (
     <div className="app">
