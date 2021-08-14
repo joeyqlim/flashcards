@@ -3,26 +3,40 @@ import Card from "./components/Card/Card";
 import NavBar from "./components/NavBar/NavBar";
 import Button from "./components/Button/Button";
 import "./App.scss";
-import axios from "axios";
-//import words from "./data/words";
+import fetchWordsFromAirtable from "./data/fetchWords";
+import wordsFromFile from "./data/words.json";
+import { sheetName } from "./data/airtableConfig";
 
 const App = () => {
   const [cards, setCards] = useState([]);
+  const [reviewed, setReviewed] = useState([]);
+  const [remainingCount, setRemainingCount] = useState(1);
   const [currentCard, setCurrentCard] = useState({
-    en: "Dog",
-    de: "Hund",
-    gender: "m",
-    plural: "Hunde",
-    topic: "Meine Familie",
+    en: "",
+    translation: `current deck: ${sheetName ? sheetName : "local"}`,
   });
+
   const [color, setColor] = useState("pink");
   const [show, setShow] = useState(false);
 
   const getRandomCard = () => {
+    let reviewedCards = reviewed;
+    reviewedCards.push(currentCard.en);
+    setReviewed(reviewedCards);
+    if (remainingCount !== 0) {
+      setRemainingCount(remainingCount - 1);
+    }
     let randomIndex = Math.floor(Math.random() * cards.length);
     let randomCard = cards[randomIndex];
-    if (randomCard === currentCard) {
-      getRandomCard(cards);
+    if (randomCard === currentCard || reviewed.includes(randomCard.en)) {
+      if (remainingCount === 0) {
+        setCurrentCard({
+          en: "🎉",
+          translation: "You've reached the end of this deck.",
+        });
+      } else {
+        getRandomCard(cards);
+      }
     } else {
       setCurrentCard(randomCard);
       setColor(randomColor());
@@ -56,26 +70,31 @@ const App = () => {
   };
 
   useEffect(() => {
-    const fetchWords = async () => {
-      const { data } = await axios.get(
-        "https://nicos-weg-api.herokuapp.com/words"
-      );
-      setCards(data);
-    };
-    fetchWords();
+    fetchWordsFromAirtable()
+      .then((res) => {
+        setCards(res);
+        setRemainingCount(res.length);
+      })
+      .catch((err) => {
+        setCards(wordsFromFile);
+        setRemainingCount(wordsFromFile.length);
+        console.log(
+          "Unable to fetch words from Airtable. Check credentials and retry.",
+          err
+        );
+      });
   }, []);
 
   return (
     <div className="app">
       <NavBar />
+      {/* {remainingCount} */}
       {!currentCard ? (
         "loading"
       ) : (
         <Card
           en={currentCard.en}
-          de={currentCard.de}
-          gender={currentCard.gender}
-          plural={currentCard.plural}
+          translation={currentCard.translation}
           color={color}
           toggleShowAnswer={toggleShowAnswer}
           show={show}
