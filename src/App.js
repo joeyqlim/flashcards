@@ -5,12 +5,16 @@ import Button from "./components/Button/Button";
 import "./App.scss";
 import fetchWordsFromAirtable from "./data/fetchWords";
 import wordsFromFile from "./data/words.json";
+import { sheetName } from "./data/airtableConfig";
 
 const App = () => {
-  const [cards, setCards] = useState(wordsFromFile);
+  const [cards, setCards] = useState([]);
   const [reviewed, setReviewed] = useState([]);
   const [remainingCount, setRemainingCount] = useState(1);
-  const [currentCard, setCurrentCard] = useState(wordsFromFile[0]);
+  const [currentCard, setCurrentCard] = useState({
+    en: "",
+    translation: `current deck: ${sheetName ? sheetName : "local"}`,
+  });
 
   const [color, setColor] = useState("pink");
   const [show, setShow] = useState(false);
