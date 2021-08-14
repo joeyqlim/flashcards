@@ -18,7 +18,6 @@
 .env.test.local
 .env.production.local
 /.vscode
-/src/data/airtableConfig.js
 
 npm-debug.log*
 yarn-debug.log*
