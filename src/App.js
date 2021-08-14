@@ -13,7 +13,9 @@ const App = () => {
   const [remainingCount, setRemainingCount] = useState(1);
   const [currentCard, setCurrentCard] = useState({
     en: "",
-    translation: `current deck: ${sheetName ? sheetName : "local"}`,
+    translation: `current deck: ${
+      sheetName !== "YOUR_SHEET_NAME" ? sheetName : "local"
+    }`,
   });
 
   const [color, setColor] = useState("pink");
