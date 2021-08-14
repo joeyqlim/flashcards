@@ -1,14 +1,13 @@
-var Airtable = require("airtable");
-// CHANGE YOUR API KEY and BASE KEY
-var base = new Airtable({ apiKey: "keyG6DUpgjDhGvQBw" }).base(
-  "appXko7rygfIr6miQ"
-); // read-only API key for demo
+import { apiKey, baseId, sheetName } from "./airtableConfig";
+
+const Airtable = require("airtable");
+
+const base = new Airtable({ apiKey: apiKey }).base(baseId);
 
 export default function fetchWords() {
   return new Promise((resolve, reject) => {
     const words = [];
-    // SELECT YOUR SHEET
-    base("de")
+    base(sheetName)
       .select()
       .eachPage(
         function page(records, fetchNextPage) {

@@ -14,10 +14,10 @@ const Card = ({ en, translation, color, toggleShowAnswer, show }) => {
         onClick={() => toggleShowAnswer()}
       >
         <div className="front">
-          <div className="en">{en}</div>
+          <div className="translation">{translation}</div>
         </div>
         <div className={`back ${show ? "show-answer" : ""}`}>
-          <div className="translation">{translation}</div>
+          <div className="en">{en}</div>
         </div>
       </div>
     </div>

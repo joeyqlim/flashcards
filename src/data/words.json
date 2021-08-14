@@ -1,16 +1,10 @@
 [
   {
     "en": "Brother",
-    "de": "Bruder",
-    "gender": "m",
-    "plural": "Brüder",
-    "topic": "Meine Familie"
+    "translation": "der Bruder"
   },
   {
     "en": "Cousin (m)",
-    "de": "Cousin",
-    "gender": "m",
-    "plural": "Cousins",
-    "topic": "Meine Familie"
+    "translation": "der Cousin"
   }
 ]

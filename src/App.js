@@ -3,16 +3,14 @@ import Card from "./components/Card/Card";
 import NavBar from "./components/NavBar/NavBar";
 import Button from "./components/Button/Button";
 import "./App.scss";
-import fetchWords from "./data/fetchWords";
+import fetchWordsFromAirtable from "./data/fetchWords";
+import wordsFromFile from "./data/words.json";
 
 const App = () => {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(wordsFromFile);
   const [reviewed, setReviewed] = useState([]);
   const [remainingCount, setRemainingCount] = useState(1);
-  const [currentCard, setCurrentCard] = useState({
-    en: "Dog",
-    translation: "der Hund",
-  });
+  const [currentCard, setCurrentCard] = useState(wordsFromFile[0]);
 
   const [color, setColor] = useState("pink");
   const [show, setShow] = useState(false);
@@ -29,8 +27,8 @@ const App = () => {
     if (randomCard === currentCard || reviewed.includes(randomCard.en)) {
       if (remainingCount === 0) {
         setCurrentCard({
-          en: "You've reached the end of this deck.",
-          translation: "🎉",
+          en: "🎉",
+          translation: "You've reached the end of this deck.",
         });
       } else {
         getRandomCard(cards);
@@ -68,11 +66,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchWords().then((res) => {
-      console.log(res);
-      setCards(res);
-      setRemainingCount(res.length);
-    });
+    fetchWordsFromAirtable()
+      .then((res) => {
+        setCards(res);
+        setRemainingCount(res.length);
+      })
+      .catch((err) => {
+        setCards(wordsFromFile);
+        setRemainingCount(wordsFromFile.length);
+        console.log(
+          "Unable to fetch words from Airtable. Check credentials and retry.",
+          err
+        );
+      });
   }, []);
 
   return (
