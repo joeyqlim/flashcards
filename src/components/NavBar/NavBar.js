@@ -12,7 +12,7 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="nav-wrapper">
-        <div className="nav-brand">Nico's Weg Flashcards</div>
+        <div className="nav-brand">just flashcards</div>
         <button className="theme-toggle-btn" onClick={() => toggleTheme()}>
           🌓
         </button>
